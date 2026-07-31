@@ -7,12 +7,14 @@ const AnalysisInputSchema = z.object({
 });
 
 export class Track1Service {
-  @(Tool as any)({
+  // @ts-ignore
+  @Tool({
     name: 'run_track1_analysis',
     description: 'Executes core financial risk and intelligence checks for Track 01.',
     schema: AnalysisInputSchema
   })
-  @(Widget as any)('track1-widget')
+  // @ts-ignore
+  @Widget('track1-widget')
   async executeAnalysis(input: z.infer<typeof AnalysisInputSchema>, ctx: ExecutionContext) {
     ctx.logger.info(`Running analysis for: ${input.targetName}`);
 
