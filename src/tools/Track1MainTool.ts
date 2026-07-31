@@ -1,4 +1,4 @@
-import { Injectable, Tool, Widget, ExecutionContext } from '@nitrostack/core';
+import { ControllerDecorator as Controller, ToolDecorator as Tool, Widget, ExecutionContext } from '@nitrostack/core';
 import { z } from 'zod';
 
 const AnalysisInputSchema = z.object({
@@ -6,15 +6,14 @@ const AnalysisInputSchema = z.object({
   amount: z.number().optional().describe('Optional transaction amount')
 });
 
-@Injectable()
+@Controller('track1')
 export class Track1Service {
-  // @ts-ignore
+  
   @Tool({
     name: 'run_track1_analysis',
     description: 'Executes core financial risk and intelligence checks for Track 01.',
-    schema: AnalysisInputSchema
+    inputSchema: AnalysisInputSchema
   })
-  // @ts-ignore
   @Widget('track1-widget')
   async executeAnalysis(input: z.infer<typeof AnalysisInputSchema>, ctx: ExecutionContext) {
     ctx.logger.info(`Running analysis for: ${input.targetName}`);
