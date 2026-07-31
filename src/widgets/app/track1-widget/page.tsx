@@ -3,72 +3,60 @@
 import React from 'react';
 import { useWidgetSDK } from '@nitrostack/widgets';
 
-interface Track1Data {
-  targetName?: string;
-  amount?: number;
-  timestamp?: string;
-  healthScore?: number;
-  status?: string;
-  metrics?: {
-    latency?: string;
-    complianceCheck?: string;
-    confidenceScore?: string;
-  };
+// Define the shape of the data coming from the backend
+interface FraudData {
+  customer: string;
+  amount: number;
+  merchant: string;
+  location: string;
+  device: string;
+  verdict: string;
+  riskScore: number;
 }
 
 export default function Track1Widget() {
-  // 1. Initialize the SDK to grab the backend data
+  // CORRECT NitroStack Data Fetching (Fixing ChatGPT's error)
   const { getToolOutput, isReady } = useWidgetSDK();
-  const data = getToolOutput<Track1Data>();
+  const output = getToolOutput<FraudData>();
 
-  // 2. Wait for the secure connection to bridge
   if (!isReady) {
-    return <div style={{ color: 'white', padding: '20px' }}>Connecting to intelligence feed...</div>;
+    return <div style={{ color: 'white', padding: 20 }}>Connecting to secure database...</div>;
   }
 
-  const isHighRisk = data?.status === 'HIGH_RISK';
+  if (!output) {
+     return <div style={{ color: 'white', padding: 20 }}>No case data found.</div>;
+  }
+
+  const isHighRisk = output.riskScore > 50;
 
   return (
     <div style={{
-      padding: '20px',
-      borderRadius: '12px',
+      padding: 20,
+      border: `2px solid ${isHighRisk ? '#EF4444' : '#10B981'}`,
+      borderRadius: 12,
       background: '#0F172A',
       color: '#F8FAFC',
-      border: `1px solid ${isHighRisk ? '#EF4444' : '#10B981'}`,
       fontFamily: 'sans-serif',
-      maxWidth: '450px'
+      maxWidth: '400px'
     }}>
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-        <h3 style={{ margin: 0, fontSize: '18px', color: '#38BDF8' }}>
-          📊 Track 01 Intelligence
-        </h3>
-        <span style={{
-          padding: '4px 10px',
-          borderRadius: '20px',
-          fontSize: '12px',
-          fontWeight: 'bold',
-          background: isHighRisk ? '#7F1D1D' : '#064E3B',
-          color: isHighRisk ? '#FCA5A5' : '#6EE7B7'
-        }}>
-          {data?.status || 'ACTIVE'}
-        </span>
-      </div>
-
-      <hr style={{ borderColor: '#334155', margin: '14px 0' }} />
-
-      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '10px', fontSize: '14px' }}>
-        <div>
-          <p style={{ margin: 0, color: '#94A3B8' }}>Target:</p>
-          {/* This will now properly render "alpha"! */}
-          <strong>{data?.targetName || 'N/A'}</strong> 
-        </div>
-        <div>
-          <p style={{ margin: 0, color: '#94A3B8' }}>Risk Score:</p>
-          <strong style={{ color: isHighRisk ? '#EF4444' : '#10B981' }}>
-            {data?.healthScore ?? 85}/100
-          </strong>
-        </div>
-      </div>
+      <h2 style={{ margin: '0 0 16px 0', color: '#38BDF8' }}>🕵️ Fraud Investigation</h2>
+      
+      <p style={{ margin: '8px 0' }}><b style={{ color: '#94A3B8' }}>Customer:</b> {output.customer}</p>
+      <p style={{ margin: '8px 0' }}><b style={{ color: '#94A3B8' }}>Amount:</b> ₹{output.amount}</p>
+      <p style={{ margin: '8px 0' }}><b style={{ color: '#94A3B8' }}>Merchant:</b> {output.merchant}</p>
+      <p style={{ margin: '8px 0' }}><b style={{ color: '#94A3B8' }}>Location:</b> {output.location}</p>
+      <p style={{ margin: '8px 0' }}><b style={{ color: '#94A3B8' }}>Device:</b> {output.device}</p>
+      
+      <h3 style={{ 
+        color: isHighRisk ? '#EF4444' : '#10B981', 
+        marginTop: '20px',
+        marginBottom: '4px'
+      }}>
+        {output.verdict}
+      </h3>
+      <p style={{ margin: 0, fontSize: '14px', color: '#94A3B8' }}>
+        Risk Score: {output.riskScore}/100
+      </p>
     </div>
   );
 }
