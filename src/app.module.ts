@@ -1,7 +1,7 @@
 import { McpApp, Module, ConfigModule } from '@nitrostack/core';
 import { CalculatorModule } from './modules/calculator/calculator.module.js';
 import { SystemHealthCheck } from './health/system.health.js';
-
+import { Track1Service } from './tools/Track1MainTool.js';
 /**
  * Root Application Module
  * 
@@ -28,6 +28,7 @@ import { SystemHealthCheck } from './health/system.health.js';
   providers: [
     // Health Checks
     SystemHealthCheck,
+    Track1Service,
   ]
 })
 export class AppModule {}

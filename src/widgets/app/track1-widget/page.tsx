@@ -1,7 +1,23 @@
-import React from 'react';
-import { createWidget } from '@nitrostack/widgets';
+'use client';
 
-export default createWidget(({ data }) => {
+import React from 'react';
+
+interface WidgetProps {
+  data?: {
+    targetName?: string;
+    amount?: number;
+    timestamp?: string;
+    healthScore?: number;
+    status?: string;
+    metrics?: {
+      latency?: string;
+      complianceCheck?: string;
+      confidenceScore?: string;
+    };
+  };
+}
+
+export default function Track1Widget({ data }: WidgetProps) {
   const isHighRisk = data?.status === 'HIGH_RISK';
 
   return (
@@ -46,4 +62,4 @@ export default createWidget(({ data }) => {
       </div>
     </div>
   );
-});
+}
