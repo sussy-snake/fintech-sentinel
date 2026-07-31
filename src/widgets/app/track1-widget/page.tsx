@@ -1,23 +1,31 @@
 'use client';
 
 import React from 'react';
+import { useWidgetSDK } from '@nitrostack/widgets';
 
-interface WidgetProps {
-  data?: {
-    targetName?: string;
-    amount?: number;
-    timestamp?: string;
-    healthScore?: number;
-    status?: string;
-    metrics?: {
-      latency?: string;
-      complianceCheck?: string;
-      confidenceScore?: string;
-    };
+interface Track1Data {
+  targetName?: string;
+  amount?: number;
+  timestamp?: string;
+  healthScore?: number;
+  status?: string;
+  metrics?: {
+    latency?: string;
+    complianceCheck?: string;
+    confidenceScore?: string;
   };
 }
 
-export default function Track1Widget({ data }: WidgetProps) {
+export default function Track1Widget() {
+  // 1. Initialize the SDK to grab the backend data
+  const { getToolOutput, isReady } = useWidgetSDK();
+  const data = getToolOutput<Track1Data>();
+
+  // 2. Wait for the secure connection to bridge
+  if (!isReady) {
+    return <div style={{ color: 'white', padding: '20px' }}>Connecting to intelligence feed...</div>;
+  }
+
   const isHighRisk = data?.status === 'HIGH_RISK';
 
   return (
@@ -51,7 +59,8 @@ export default function Track1Widget({ data }: WidgetProps) {
       <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '10px', fontSize: '14px' }}>
         <div>
           <p style={{ margin: 0, color: '#94A3B8' }}>Target:</p>
-          <strong>{data?.targetName || 'N/A'}</strong>
+          {/* This will now properly render "alpha"! */}
+          <strong>{data?.targetName || 'N/A'}</strong> 
         </div>
         <div>
           <p style={{ margin: 0, color: '#94A3B8' }}>Risk Score:</p>
