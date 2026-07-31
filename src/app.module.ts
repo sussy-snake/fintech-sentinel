@@ -2,34 +2,27 @@ import { McpApp, Module, ConfigModule } from '@nitrostack/core';
 import { CalculatorModule } from './modules/calculator/calculator.module.js';
 import { SystemHealthCheck } from './health/system.health.js';
 import { Track1Service } from './tools/Track1MainTool.js';
-/**
- * Root Application Module
- * 
- * This is the main module that bootstraps the MCP server.
- * It registers all feature modules and health checks.
- */
+
 @McpApp({
   module: AppModule,
   server: {
     name: 'calculator-server',
-    version: '1.0.0'
+    version: '1.0.0',
   },
   logging: {
-    level: 'info'
-  }
+    level: 'info',
+  },
 })
 @Module({
   name: 'app',
   description: 'Root application module',
   imports: [
     ConfigModule.forRoot(),
-    CalculatorModule
+    CalculatorModule,
   ],
   providers: [
-    // Health Checks
     SystemHealthCheck,
     Track1Service,
-  ]
+  ],
 })
 export class AppModule {}
-

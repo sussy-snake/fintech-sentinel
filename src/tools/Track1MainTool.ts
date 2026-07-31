@@ -1,4 +1,4 @@
-import { Tool, Widget, ExecutionContext } from '@nitrostack/core';
+import { Injectable, Tool, Widget, ExecutionContext } from '@nitrostack/core';
 import { z } from 'zod';
 
 const AnalysisInputSchema = z.object({
@@ -6,6 +6,7 @@ const AnalysisInputSchema = z.object({
   amount: z.number().optional().describe('Optional transaction amount')
 });
 
+@Injectable()
 export class Track1Service {
   // @ts-ignore
   @Tool({
