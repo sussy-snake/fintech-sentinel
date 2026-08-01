@@ -2,12 +2,6 @@
   "version": "1.0.0",
   "widgets": [
     {
-      "uri": "/calculator-result",
-      "name": "Calculator Result",
-      "description": "Displays the result of a calculation with operation details",
-      "tags": ["calculator", "math", "result"]
-    },
-    {
       "uri": "/track1-widget",
       "name": "Track 1 Intelligence",
       "description": "Automated banking fraud investigation dashboard",
