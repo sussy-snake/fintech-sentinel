@@ -1,49 +1,16 @@
-# NitroStack Starter Template
+# Sentinel AI: Banking Fraud Investigation
 
-Minimal template for learning NitroStack fundamentals with a calculator-focused
-MCP server and basic widgets.
+An agentic AI dashboard built with NitroStack to detect and flag high-risk banking accounts.
 
-## What This Template Includes
+## 🚀 How to Run the Project Locally
 
-- `calculator` module with tools, resources, and prompts
-- TypeScript + Zod validation setup
-- Widget-ready project structure
-- Production-friendly npm scripts
+**For Windows Users:**
+1. Open the project folder.
+2. Double-click the `start-project.bat` file.
+3. Wait for the terminal to say "Server Started", then open the tool in NitroStudio.
 
-## Quick Start
-
-```bash
-npx @nitrostack/cli init my-server --template typescript-starter
-cd my-server
-npm run dev
-```
-
-## Common Commands
-
-```bash
-npm run dev
-npm run build
-npm start
-```
-
-## NitroStudio
-
-NitroStudio is the recommended way to test and debug this template during
-development.
-
-- Download: <https://nitrostack.ai/studio>
-- Studio: <https://nitrostack.ai/studio>
-
-## Links
-
-- Docs: <https://docs.nitrostack.ai>
-- Templates docs: <https://docs.nitrostack.ai/templates/01-starter-template>
-- Main repository: <https://github.com/nitrocloudofficial/nitrostack>
-
-## Community
-
-- Discord: <https://discord.gg/uVWey6UhuD>
-- X: <https://x.com/nitrostackai>
-- YouTube: <https://www.youtube.com/@nitrostackai>
-- LinkedIn: <https://linkedin.com/company/nitrostack-ai/>
-- GitHub: <https://github.com/nitrostackai>
+**For Mac / Linux Users:**
+1. Open your terminal in the project root folder.
+2. Run this single command to install, build, and start the server:
+   `npm --prefix src/widgets install && npm --prefix src/widgets run build && npm install && npm run build && npm run dev`
+3. Open the tool in NitroStudio.
